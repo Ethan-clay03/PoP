@@ -15,3 +15,4 @@ week14/
 week16/
 week17/
 *.gif
+__pycache__/
