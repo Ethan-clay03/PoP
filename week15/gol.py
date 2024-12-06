@@ -62,11 +62,20 @@ class GameOfLife:
         return all_frames
 
     def set_start_grid(self, file_name, size_x, size_y):
+        line_number = 1
         with open(file_name, 'r') as file:
             for line in file:
-                x, y = map(int, line.split())
-                if 0 <= x < size_x and 0 <= y < size_y:
-                    self.data[0][x][y] = True  # Set the initial grid state.
+                try:
+                    x, y = map(int, line.split())
+                    if 0 <= x < size_x and 0 <= y < size_y:
+                        self.data[0][x][y] = True
+                except ValueError:
+                    line = line.strip()
+                    if not line:
+                        print(f"Invalid line (number {line_number}) Reason: Blank Row")
+                    else:
+                        print(f"Invalid line (number {line_number}) Reason: Not Two Integers, line values entered - {line}")
+                line_number += 1
 
     def generate_gif(self, filename, frame_duration):
         frames = self.evolve() 
@@ -88,4 +97,5 @@ if __name__ == '__main__':
     f, x, y = 100, 100, 100
     game = GameOfLife(f, x, y)
     game.set_start_grid('initial_grid.txt', x, y)
-    game.generate_gif('game_of_life', 2000)
+    #Change second value below to speed up / slow down gif. Lower number = quicker
+    game.generate_gif('game_of_life', 200)
