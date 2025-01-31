@@ -44,7 +44,7 @@ class GameOfLife:
             next_frame = [[False for _ in range(len(self.data[0][0]))] for _ in range(len(self.data[0]))]
 
             for x in range(len(self.data[0])):
-                #Run through the rules in order, update cells to living or dead state
+                #Run through the rules in order, update cells to be living or dead
                 for y in range(len(self.data[0][0])):
                     if self.underpopulation(frame - 1, x, y) or self.overpopulation(frame - 1, x, y):
                         next_frame[x][y] = False
